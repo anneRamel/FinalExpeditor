@@ -1,0 +1,15 @@
+127.0.0.1 - - [04/Oct/2017:13:56:38 +0200] "GET / HTTP/1.1" 404 962
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:40 +0200] "GET /Expeditor/ HTTP/1.1" 200 1546
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:40 +0200] "GET /Expeditor/theme/css/bootstrap-theme.css HTTP/1.1" 200 26132
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:40 +0200] "GET /Expeditor/theme/css/bootstrap.css HTTP/1.1" 200 146010
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:40 +0200] "GET /dist/js/bootstrap.min.js HTTP/1.1" 404 1010
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:40 +0200] "GET /assets/js/ie10-viewport-bug-workaround.js HTTP/1.1" 404 1044
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:40 +0200] "GET /Expeditor/theme/js/bootstrap.min.js HTTP/1.1" 200 37045
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:52 +0200] "GET /Expeditor/ HTTP/1.1" 200 1546
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:52 +0200] "GET /Expeditor/theme/css/bootstrap.css HTTP/1.1" 200 146010
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:52 +0200] "GET /Expeditor/theme/css/bootstrap-theme.css HTTP/1.1" 200 26132
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:52 +0200] "GET /dist/js/bootstrap.min.js HTTP/1.1" 404 1010
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:52 +0200] "GET /assets/js/ie10-viewport-bug-workaround.js HTTP/1.1" 404 1044
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:52 +0200] "GET /Expeditor/theme/js/bootstrap.min.js HTTP/1.1" 200 37045
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:53 +0200] "GET /dist/js/bootstrap.min.js HTTP/1.1" 404 1010
+0:0:0:0:0:0:0:1 - - [04/Oct/2017:13:56:53 +0200] "GET /assets/js/ie10-viewport-bug-workaround.js HTTP/1.1" 404 1044
