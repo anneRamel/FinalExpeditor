@@ -17,16 +17,16 @@ public class Commande implements Serializable{
 	private float poidsTotal;
 	private Societe societe;
 	private Employe employe;
-	private Map<Article, Integer> articlesComanndes;
+	private Map<Article, Integer> articlesCommandes;
 			
 	public Commande() {
 		super();
-		this.articlesComanndes = new HashMap<>();
+		this.articlesCommandes = new HashMap<>();
 	}
 	
 		
 	public Commande(int id, Date dateCommande, Statut statut, float poidsTotal, Societe societe, Employe employe,
-			Map<Article, Integer> articlesComanndes) {
+			Map<Article, Integer> articlesCommandes) {
 		super();
 		this.id = id;
 		this.dateCommande = dateCommande;
@@ -34,7 +34,7 @@ public class Commande implements Serializable{
 		this.poidsTotal = poidsTotal;
 		this.societe = societe;
 		this.employe = employe;
-		this.articlesComanndes = articlesComanndes;
+		this.articlesCommandes = articlesCommandes;
 	}
 
 	public Societe getSociete() {
@@ -52,12 +52,12 @@ public class Commande implements Serializable{
 	public void setEmploye(Employe employe) {
 		this.employe = employe;
 	}
-	public Map<Article, Integer> getArticlesComanndes() {
-		return articlesComanndes;
+	public Map<Article, Integer> getArticlesCommandes() {
+		return articlesCommandes;
 	}
 	
-	public void setArticlesComanndes(Map<Article, Integer> articlesComanndes) {
-		this.articlesComanndes = articlesComanndes;
+	public void setArticlesCommandes(Map<Article, Integer> articlesCommandes) {
+		this.articlesCommandes = articlesCommandes;
 	}
 	
 	public int getId() {
@@ -90,7 +90,7 @@ public class Commande implements Serializable{
 	
 	public void setPoidsTotal(float poidsTotal) throws Exception {
 		if(poidsTotal < 0){
-			throw new Exception("Le poids doit Ãªtre supÃ©rieur Ã  0");
+			throw new Exception("Le poids doit être supérieur à 0");
 		}else{
 			this.poidsTotal = poidsTotal;
 		}
@@ -111,8 +111,8 @@ public class Commande implements Serializable{
 		builder.append(societe);
 		builder.append(", employe=");
 		builder.append(employe);
-		builder.append(", articlesComanndes=");
-		builder.append(articlesComanndes);
+		builder.append(", articlesCommandes=");
+		builder.append(articlesCommandes);
 		builder.append("]");
 		return builder.toString();
 	}

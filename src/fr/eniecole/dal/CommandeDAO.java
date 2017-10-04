@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import fr.eniecole.bean.Employe;
+import fr.eniecole.bean.Employe_Manager_Enum;
 import fr.eniecole.bean.Societe;
 import fr.eniecole.bean.Article;
 import fr.eniecole.bean.Commande;
@@ -28,12 +29,18 @@ public class CommandeDAO {
 			+ "LEFT JOIN Employes e ON e.idEmploye = c.idEmploye "
 			+ "WHERE c.statut IN ('A TRAITER', 'EN COURS DE TRAITEMENT')" + "ORDER BY c.idCommande;";
 
-	private final static String GET_COMMANDE_PRIORITAIRE = "SELECT TOP 1 *" + "FROM Commandes c "
+	private final static String GET_COMMANDE_PRIORITAIRE = "SELECT TOP 1 *" + " FROM Commandes c "
 			+ "LEFT JOIN Societes s ON c.idSociete = s.idSociete "
-			+ "WHERE c.statut = 'A TRAITER" + "ORDER BY c.date;";
+			+ "WHERE c.statut = 'A TRAITER'" 
+			+ " ORDER BY c.date;";
 
 	private final static String GET_DETAIL_COMMANDE = "SELECT * FROM LignesCommandes lc "
 			+ "INNER JOIN Articles a ON  lc.idArticle= a.idArticle " + "WHERE lc.idCommande=?; ";
+	
+	private final static String GET_NB_COMMANDES = "SELECT COUNT(*) AS total, e.idEmploye,e.nom, e.prenom "
+			+ "FROM Commandes c INNER JOIN Employes e ON e.idEmploye=c.idEmploye "
+			+ "WHERE c.statut IN ('TRAITEE')"
+			+ "GROUP BY e.idEmploye, e.nom,	e.prenom;";
 
 	private final static String COL_IDCOMMANDE = "idCommande";
 	private final static String COL_POIDSTOTAL = "poidsTotal";
@@ -49,6 +56,7 @@ public class CommandeDAO {
 	private final static String COL_LIBELLE = "libelle";
 	private final static String COL_POIDSARTICLE = "poidsArticle";
 	private final static String COL_QUANTITE = "quantiteCommandee";
+	private final static String COL_TOTALCOMMANDES = "total";
 
 	public Commande getCommande() throws Exception {
 		Commande c = new Commande();
@@ -96,11 +104,19 @@ public class CommandeDAO {
 	public Map<Employe, Integer> getNbCommandesParEmploye() throws Exception {
 		Map<Employe, Integer> nbCommandes = new HashMap<>();
 		try (Connection cnx = AccesBase.getConnection()) {
-			// PreparedStatement cmd = cnx.prepareStatement(sql);
+			PreparedStatement cmd = cnx.prepareStatement(GET_NB_COMMANDES);
+			ResultSet rs = cmd.executeQuery();
+			while (rs.next()){
+				int total = rs.getInt(COL_TOTALCOMMANDES);
+				Employe employe = new Employe();
+				employe.setId(rs.getInt(COL_IDEMPLOYE));
+				employe.setPrenom(rs.getString(COL_PRENOM));
+				employe.setNom(rs.getString(COL_NOM));
+				nbCommandes.put(employe, total);
+			}
 		} catch (SQLException e) {
 			logger.severe(e.getMessage());
 		}
-
 		return nbCommandes;
 	}
 
@@ -108,14 +124,13 @@ public class CommandeDAO {
 		Commande commande = new Commande();
 		try {
 			commande.setId(rs.getInt(COL_IDCOMMANDE));
-
+			
 			Societe societe = new SocieteDAO().itemBuilder(rs);
 			commande.setSociete(societe);
-						
 			commande.setPoidsTotal(rs.getFloat(COL_POIDSTOTAL));
 			commande.setStatut(ManipEnumStatut.StringToEnum(rs.getString(COL_STATUT)));
 			commande.setDateCommande(ManipDate.dateSQLVersUtil(rs.getDate(COL_DATE)));
-
+			
 			Employe employe = new Employe();
 			employe.setId(rs.getInt(COL_IDEMPLOYE));
 			employe.setNom(rs.getString(COL_NOM));
@@ -131,7 +146,7 @@ public class CommandeDAO {
 	}
 	
 	private Commande getDetailCommande(ResultSet rs, Commande commande){
-		Map<Article, Integer> hm = new HashMap<>();
+		Map<Article, Integer> hm = commande.getArticlesCommandes();
 		try {
 			Article article = new Article();
 			article.setId(rs.getInt(COL_IDARTICLE));
@@ -142,7 +157,7 @@ public class CommandeDAO {
 		} catch (SQLException e) {
 			logger.severe(e.getMessage());
 		}
-		commande.setArticlesComanndes(hm);
+		commande.setArticlesCommandes(hm);
 		return commande;
 	}
 }

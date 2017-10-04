@@ -2,6 +2,7 @@ package fr.eniecole.servlet;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eniecole.bean.Commande;
+import fr.eniecole.bean.Employe;
 import fr.eniecole.dal.CommandeDAO;
 
 /**
@@ -33,16 +35,20 @@ public class SuiviCommande extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = null;
 		List<Commande> listeCommandes = null;
+		Map<Employe, Integer> nbCommandes = null;
 		
 		try {
 			listeCommandes = dao.getListeCommandes();
+			nbCommandes = dao.getNbCommandesParEmploye();
 			if(listeCommandes.size()== 0){
 				request.setAttribute("erreur", "Pas de commandes à traiter");
 			}else{
 				request.setAttribute("liste", listeCommandes);
+				request.setAttribute("nbCommandes", nbCommandes);
 			}
 			rd = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/manager/suiviCommande.jsp");
 			System.out.println(listeCommandes);
+			System.out.println(nbCommandes);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
