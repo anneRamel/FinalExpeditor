@@ -90,7 +90,7 @@ public class Commande implements Serializable{
 	
 	public void setPoidsTotal(float poidsTotal) throws Exception {
 		if(poidsTotal < 0){
-			throw new Exception("Le poids doit Ãªtre supÃ©rieur Ã  0");
+			throw new Exception("Le poids doit être supérieur à 0");
 		}else{
 			this.poidsTotal = poidsTotal;
 		}
