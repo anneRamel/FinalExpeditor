@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/theme/css/bootstrap.css" >
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/theme/css/bootstrap-theme.css" >
-
+	<script src="${pageContext.request.contextPath}/theme/js/Chart.js"></script>
 	<title>Suivi de commande</title>
 </head>
 <body>
@@ -67,10 +68,37 @@
 							<div class="col-lg-5"><p>${employe.value}</p></div>
 							</c:forEach>
 						</div>
-						
-					</div>
+						<div id="chart-holder">
+							<canvas id="myChart"></canvas>
+						</div>
 				</div>
 			</div>
 		
 </div>	
+
+<script>
+	var data = '${requestScope.data}';
+	var label = '${requestScope.label}';
+	function toObject(arr) {
+		  var rv = {};
+		  for (var i = 0; i < arr.length; ++i)
+		    rv[i] = arr[i];
+		  return rv;
+		}
+	var dataObjet = toObject(data);
+	var labelObjet = toObject(label);
+	console.log(dataObjet);
+	var ctx = document.getElementById("myChart").getContext('2d');
+	var myPieChart = new Chart(ctx,{
+	    type: 'pie',
+	    data: {
+	        datasets: [{
+	            data: 'dataObjet',
+	            backgroundColor : ['rgb(22, 184, 78)','rgb(247, 35, 12)']
+	        }],
+	
+    	     labels: 'labelObjet'
+	        }
+	});
+	</script>
  <%@include file="/WEB-INF/jsp/includes/footer.jsp" %>	
