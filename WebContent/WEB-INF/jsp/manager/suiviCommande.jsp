@@ -7,12 +7,26 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/theme/css/bootstrap.css" >
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/theme/css/bootstrap-theme.css" >
+
 	<title>Suivi de commande</title>
 </head>
 <body>
-	<div class="container-fluid">
-		<h1>Bonjour M.Le Manager</h1>
-		<div class="row">
+	 <header>
+     	<nav class="navbar navbar-default navbar-static-top">
+      		<div class="container">
+        		<div class="navbar-header"></div>
+       			<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+            			<li><a href="<%=request.getContextPath()%>/Deconnexion">Home</a></li>
+          			</ul>
+        		</div>
+      		</div>
+    	</nav>
+	</header>
+<div class="container-fluid">
+
+		<h1>Bonjour ${sessionScope.prenom} ${sessionScope.nom}</h1>
+		
 			<div class="col-lg-8 panel-group">
 				<div class="col-lg-12 panel panel-primary">
 					<div class="row panel-heading">
@@ -46,16 +60,17 @@
 						<div class="col-lg-7"><p>Employé</p></div>
 						<div class="col-lg-5"><p>Nombre de commandes</p></div>
 					</div>
-					<c:forEach var="employe" items="${requestScope.nbCommandes}">
 					<div class="row panel-body">
-						<div class="col-lg-7"><p>${employe.key.prenom}${employe.key.nom}</p></div>
-						<div class="col-lg-5"><p>${employe.value}</p></div>
-							
+						<div class="col-lg-12">
+							<c:forEach var="employe" items="${requestScope.nbCommandes}">
+							<div class="col-lg-7"><p>${employe.key.prenom}${employe.key.nom}</p></div>
+							<div class="col-lg-5"><p>${employe.value}</p></div>
+							</c:forEach>
+						</div>
+						
 					</div>
-					</c:forEach>
 				</div>
 			</div>
-		</div>
-	</div>
-</body>
-</html>
+		
+</div>	
+ <%@include file="/WEB-INF/jsp/includes/footer.jsp" %>	

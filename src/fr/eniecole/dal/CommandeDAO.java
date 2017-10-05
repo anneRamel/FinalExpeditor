@@ -39,7 +39,7 @@ public class CommandeDAO {
 	
 	private final static String GET_NB_COMMANDES = "SELECT COUNT(*) AS total, e.idEmploye,e.nom, e.prenom "
 			+ "FROM Commandes c INNER JOIN Employes e ON e.idEmploye=c.idEmploye "
-			+ "WHERE c.statut IN ('TRAITEE')"
+			+ "WHERE c.statut IN ('TRAITEE')and CAST(c.date AS DATE) IN ('2014-04-12')"
 			+ "GROUP BY e.idEmploye, e.nom,	e.prenom;";
 
 	private final static String COL_IDCOMMANDE = "idCommande";

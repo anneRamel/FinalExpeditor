@@ -20,6 +20,8 @@ import fr.eniecole.dal.CommandeDAO;
 public class SuiviCommande extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CommandeDAO dao = null;
+	private int[] nbCommandesParEmploye;
+	private String[] nomEmploye;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -36,15 +38,19 @@ public class SuiviCommande extends HttpServlet {
 		RequestDispatcher rd = null;
 		List<Commande> listeCommandes = null;
 		Map<Employe, Integer> nbCommandes = null;
+		Employe employe = (Employe) request.getSession().getAttribute("user");
 		
 		try {
 			listeCommandes = dao.getListeCommandes();
 			nbCommandes = dao.getNbCommandesParEmploye();
+			getTableau(nbCommandes);
 			if(listeCommandes.size()== 0){
 				request.setAttribute("erreur", "Pas de commandes à traiter");
 			}else{
 				request.setAttribute("liste", listeCommandes);
 				request.setAttribute("nbCommandes", nbCommandes);
+				request.setAttribute("data", nbCommandesParEmploye);
+				request.setAttribute("label", nomEmploye);
 			}
 			rd = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/manager/suiviCommande.jsp");
 			System.out.println(listeCommandes);
@@ -61,8 +67,20 @@ public class SuiviCommande extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	private void getTableau(Map<Employe, Integer> nbCommandes){
+		int index = 0;
+		int tailleMap = nbCommandes.size();
+		nomEmploye = new String[tailleMap];
+		nbCommandesParEmploye = new int[tailleMap];
+		for(Map.Entry<Employe, Integer> entry : nbCommandes.entrySet()){
+			nomEmploye[index] = entry.getKey().getNom();
+			nbCommandesParEmploye[index] = entry.getValue();
+			index ++;
+		}
+				
 	}
 
 }
