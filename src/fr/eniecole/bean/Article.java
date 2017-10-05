@@ -17,9 +17,21 @@ public class Article implements Serializable{
 	public Article() {
 	}
 	
+	public Article(int id) {
+		super();
+		this.id = id;
+	}
+	
 	public Article(int id, String libelle, float poids, int quantite) {
 		super();
 		this.id = id;
+		this.libelle = libelle;
+		this.poids = poids;
+		this.quantite = quantite;
+	}
+	
+	public Article(String libelle, float poids, int quantite) {
+		super();
 		this.libelle = libelle;
 		this.poids = poids;
 		this.quantite = quantite;

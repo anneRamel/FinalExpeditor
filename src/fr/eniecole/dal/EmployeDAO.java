@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import com.sun.xml.internal.ws.server.sei.ValueGetter;
 
 import fr.eniecole.bean.Employe;
+import fr.eniecole.bean.Employe_Manager_Enum;
 import fr.eniecole.utils.AccesBase;
 import fr.eniecole.utils.ManipEnumEmploye;
 
@@ -65,7 +66,7 @@ public class EmployeDAO {
 		PreparedStatement rqt=null;
 		try{
 			cnx=AccesBase.getConnection();
-			rqt=cnx.prepareStatement("update formations set nom=?, prenom=?, role=?, mail=?,password=?");
+			rqt=cnx.prepareStatement("update Employes set nom=?, prenom=?, role=?, mail=?,password=?");
 			rqt.setString(1, employe.getNom());
 			rqt.setString(2, employe.getPrenom());
 			rqt.setString(3, employe.getRole().toString());
@@ -89,13 +90,13 @@ public class EmployeDAO {
 		ResultSet rs=null;
 		try{
 			cnx=AccesBase.getConnection();
-			rqt=cnx.prepareStatement("select * from formations where idEmploye = ?");
+			rqt=cnx.prepareStatement("select * from Employes where idEmploye = ?");
 			rqt.setInt(1, employe.getId());
 			rs=rqt.executeQuery();
 			while (rs.next()){
 				employe.setNom(rs.getString("nom"));
 				employe.setPrenom(rs.getString("prenom"));
-				employe.setRole(Enum.valueOf(null,rs.getString("role")));
+				employe.setRole(ManipEnumEmploye.StringToEnum(rs.getString("role")));
 				employe.setEmail(rs.getString("mail"));
 				employe.setPassword(rs.getString("password"));
 				
