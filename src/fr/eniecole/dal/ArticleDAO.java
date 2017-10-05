@@ -55,7 +55,7 @@ public class ArticleDAO {
 	
 	public void addArticle(Article article){
 		try (Connection cnx = AccesBase.getConnection()){
-			PreparedStatement rqt = cnx.prepareStatement("insert into Article (libelle, poidsArticle, quantite) "
+			PreparedStatement rqt = cnx.prepareStatement("insert into Articles (libelle, poidsArticle, quantite) "
 					+  "values (?,?,?)");
 			rqt.setString(1, article.getLibelle());
 			rqt.setFloat(2, article.getPoids());

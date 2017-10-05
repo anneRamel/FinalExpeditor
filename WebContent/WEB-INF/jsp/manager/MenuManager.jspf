@@ -1,0 +1,7 @@
+<h3>Menu Manager</h3>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#">Gérer commande</a></li>
+    <li><a href="#">Gérer Employé</a></li>
+    <li><a href="#">Gérer Article</a></li>
+  </ul>
+  <br>
