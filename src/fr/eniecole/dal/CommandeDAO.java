@@ -28,13 +28,16 @@ public class CommandeDAO {
 			+ "LEFT JOIN Employes e ON e.idEmploye = c.idEmploye "
 			+ "WHERE c.statut IN ('A TRAITER', 'EN COURS DE TRAITEMENT')" + "ORDER BY c.idCommande;";
 
-	private final static String GET_COMMANDE_PRIORITAIRE = "SELECT TOP 1 *" + "FROM Commandes c "
+	private final static String GET_COMMANDE_PRIORITAIRE = "SELECT TOP 1 * " + "FROM Commandes c "
 			+ "LEFT JOIN Societes s ON c.idSociete = s.idSociete "
-			+ "WHERE c.statut = 'A TRAITER" + "ORDER BY c.date;";
+			+ "WHERE c.statut = 'A TRAITER'" 
+			+ " ORDER BY c.date;";
 
 	private final static String GET_DETAIL_COMMANDE = "SELECT * FROM LignesCommandes lc "
 			+ "INNER JOIN Articles a ON  lc.idArticle= a.idArticle " + "WHERE lc.idCommande=?; ";
 
+	private final static String UPDATE_COMMANDE ="UPDATE Commandes SET statut=?, idEmploye=?, poidsTotal=? WHERE idCommande=?  ";
+	
 	private final static String COL_IDCOMMANDE = "idCommande";
 	private final static String COL_POIDSTOTAL = "poidsTotal";
 	private final static String COL_STATUT = "statut";
@@ -62,6 +65,24 @@ public class CommandeDAO {
 			logger.severe(e.getMessage());
 		}
 		return c;
+	}
+	
+	public static void modifier(Commande commande) throws SQLException{
+		Connection cnx=null;
+		PreparedStatement rqt=null;
+		try{
+			cnx=AccesBase.getConnection();
+			rqt=cnx.prepareStatement(UPDATE_COMMANDE);
+			rqt.setString(1, ManipEnumStatut.EnumToString(commande.getStatut()));
+			rqt.setInt(2, commande.getEmploye().getId());
+			rqt.setFloat(3, commande.getPoidsTotal());
+			rqt.setInt(4, commande.getId());
+
+			rqt.executeUpdate();
+		}finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
 	}
 
 	public Commande getDetailCommande(Commande commandeDetail) throws Exception {
@@ -131,7 +152,7 @@ public class CommandeDAO {
 	}
 	
 	private Commande getDetailCommande(ResultSet rs, Commande commande){
-		Map<Article, Integer> hm = new HashMap<>();
+		Map<Article, Integer> hm = commande.getArticlesCommandes();
 		try {
 			Article article = new Article();
 			article.setId(rs.getInt(COL_IDARTICLE));
@@ -142,7 +163,7 @@ public class CommandeDAO {
 		} catch (SQLException e) {
 			logger.severe(e.getMessage());
 		}
-		commande.setArticlesComanndes(hm);
+		commande.setArticlesCommandes(hm);
 		return commande;
 	}
 }

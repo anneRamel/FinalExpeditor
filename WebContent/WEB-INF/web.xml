@@ -81,7 +81,7 @@
     <servlet-name>SuiviCommande</servlet-name>
     <url-pattern>/suiviCommande</url-pattern>
   </servlet-mapping>
-  <servlet>
+    <servlet>
     <description></description>
     <display-name>CommandePrioritaireServlet</display-name>
     <servlet-name>CommandePrioritaireServlet</servlet-name>
@@ -90,6 +90,26 @@
   <servlet-mapping>
     <servlet-name>CommandePrioritaireServlet</servlet-name>
     <url-pattern>/CommandePrioritaireServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>pdfServlet</display-name>
+    <servlet-name>pdfServlet</servlet-name>
+    <servlet-class>fr.eniecole.servlet.pdfServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>pdfServlet</servlet-name>
+    <url-pattern>/pdfServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NouvelleCommandeServlet</display-name>
+    <servlet-name>NouvelleCommandeServlet</servlet-name>
+    <servlet-class>fr.eniecole.servlet.NouvelleCommandeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NouvelleCommandeServlet</servlet-name>
+    <url-pattern>/NouvelleCommandeServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
