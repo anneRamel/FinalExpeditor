@@ -16,7 +16,7 @@
 <title>Expeditor</title>
 </head>
 <body>
-<h2>Bienvenue sur Expeditor</h2>
+<h2 align="center">Bienvenue sur Expeditor</h2><br>
 <div class="row">
     <a href="<%=request.getContextPath()%>/AuthManager">
         <div class="col-sm-6 col-sm-push-1 jumbotron bloc_profil">

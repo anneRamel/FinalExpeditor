@@ -1,5 +1,6 @@
 package fr.eniecole.dal;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import com.sun.xml.internal.ws.server.sei.ValueGetter;
 
 import fr.eniecole.bean.Employe;
 import fr.eniecole.utils.AccesBase;
+import fr.eniecole.utils.ManipEnumEmploye;
 
 
 public class EmployeDAO {
@@ -120,14 +122,14 @@ public class EmployeDAO {
 		try{
 			cnx=AccesBase.getConnection();
 			rqt=cnx.createStatement();			
-			rs=rqt.executeQuery("select * from Employes");
+			rs=rqt.executeQuery("select * from Employes where Employes.role='employe'");
 			Employe employe;
 			while (rs.next()){
 				employe = new Employe(
 									rs.getInt("idEmploye"),
 									rs.getString("nom"),
 									rs.getString("prenom"),
-									Enum.valueOf(null, rs.getString("role")),
+									ManipEnumEmploye.StringToEnum(rs.getString("role")),
 									rs.getString("mail"),
 									rs.getString("password")
 						);
@@ -140,6 +142,45 @@ public class EmployeDAO {
 		}
 		
 		return listeEmployes;
+	}
+	
+	public Employe authenticate(String login, String password) {
+		Employe result = null ;
+		Connection cnx;
+		try {
+			cnx = AccesBase.getConnection();			
+			PreparedStatement rqt = cnx.prepareStatement("select * from Employes where Employes.mail=? and Employes.password=? ");
+			rqt.setString(1, login);
+			rqt.setString(2, password);
+			ResultSet rs= rqt.executeQuery();
+			if (rs.next()) {
+				result = itemBuilder(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			
+					
+		return result;
+	}
+	
+	public Employe itemBuilder(ResultSet rs)  {
+		Employe result = new Employe();		
+		
+			try {
+				result.setId(rs.getInt("idEmploye"));
+				result.setNom(rs.getString("nom"));
+				result.setPrenom(rs.getString("prenom"));
+				result.setEmail(rs.getString("mail"));
+				result.setPassword(rs.getString("password"));
+				result.setRole(ManipEnumEmploye.StringToEnum(rs.getString("role")));
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		
+		return result;
 	}
 
 }
