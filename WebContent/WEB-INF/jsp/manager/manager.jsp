@@ -43,29 +43,36 @@
 </div>
 
 			<div class="col-lg-6 panel-group" >
+				<form method="GET" action="<%=request.getContextPath()%>/ManagerServlet">
 					<div class="form-group">
 					  <label for="usr">Nom:</label>
-					  <input type="text" class="form-control" id="nomAremplir">
+					  <input type="text" class="form-control" id="nomAremplir" name="nomAremplir" required>
 					</div>
 					<div class="form-group">
 					  <label for="pwd">Prénom:</label>
-					  <input type="text" class="form-control" id="prenomAremplir">
+					  <input type="text" class="form-control" id="prenomAremplir" name="prenomAremplir" required>
 					</div>
 					<div class="form-group">
 					  <label for="usr">Email:</label>
-					  <input type="text" class="form-control" id="emailAremplir">
+					  <input type="text" class="form-control" id="emailAremplir" name="emailAremplir" required>
 					</div>
 					<div class="form-group">
 					  <label for="pwd">Mot de passe:</label>
-					  <input type="text" class="form-control" id="pwdAremplir">
-					</div>	
-					<input onclick="Creer()" type="submit" class="btn btn-default" name="Creer" value="Créer"/>	
-					<form method="POST" action="<%=request.getContextPath()%>/WEB-INF/jsp/manager/manager.jsp">
-					 <input onclick="Valider()" type="submit" class="btn btn-default" id="valider" name="Valider" value="Valider"/>
-    				</form>
+					  <input type="text" class="form-control" id="pwdAremplir" name="pwdAremplir">
+					</div>										
+					
+					<input onclick="Vider()" type="submit" class="btn btn-default" id="Creer" name="Creer" value="Créer un nouvel employé"/>	
+					<input onclick="Valider()" type="submit" class="btn btn-default" id="Valider" name="Valider" value="Enregistrer nouvel employé"/>
+					<c:if test="${!empty error }">
+				
+						<div class="alert alert-warning">
+				 				 <strong>${error}</strong> 
+						</div>				
+					
+					</c:if>	
+    			</form>
 								
 			</div>
-	
 </div>
 							
 					     	 
@@ -86,19 +93,18 @@
 		<script>
 		   
         
-		function Creer() {
-		    document.getElementById("nomAremplir").value = null;
-		    document.getElementById("prenomAremplir").value = null;
-		    document.getElementById("emailAremplir").value = null;
-		    document.getElementById("pwdAremplir").value = null;
+		function Vider() {
+		    document.getElementById("nomAremplir").value = "";
+		    document.getElementById("prenomAremplir").value = "";
+		    document.getElementById("emailAremplir").value = "";
+		    document.getElementById("pwdAremplir").value = "";
 		}
+		</script>
+		<script>
 		function Valider() {
-			
-			
-		    <!--= document.getElementById("nomAremplir").value;
-		    = document.getElementById("prenomAremplir").value;
-		    = document.getElementById("emailAremplir").value;
-		    = document.getElementById("pwdAremplir").value;-->
+						
+		    
+		    
 		}
 		</script>
    

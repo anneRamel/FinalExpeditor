@@ -15,7 +15,18 @@
 	<title>Bon de Livraison</title>
 	</head>
 	<body>
-	<!-- <a href="${requestScope.test}" target= "blank">Bon de livraison</a> -->
+	 <header>
+     	<nav class="navbar navbar-default navbar-static-top">
+      		<div class="container">
+        		<div class="navbar-header"></div>
+       			<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+            			<li><a href="<%=request.getContextPath()%>/Deconnexion">Home</a></li>
+          			</ul>
+        		</div>
+      		</div>
+    	</nav>
+	</header>
 	<br>
 	<br>
 	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Fin de la commande</button>
@@ -38,7 +49,7 @@
 	    			</div><!-- /.modal-content -->
 	  			</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
-<%-- 	<iframe src="${requestScope.test}"  width="800" height="1000" align="middle"></iframe> --%>
+
 </body>
 
 </html>

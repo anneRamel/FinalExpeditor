@@ -18,6 +18,7 @@ import fr.eniecole.bean.Article;
 import fr.eniecole.bean.Commande;
 import fr.eniecole.utils.AccesBase;
 import fr.eniecole.utils.ManipDate;
+import fr.eniecole.utils.ManipEnumEmploye;
 import fr.eniecole.utils.ManipEnumStatut;
 
 public class CommandeDAO {
@@ -156,6 +157,7 @@ public class CommandeDAO {
 			employe.setId(rs.getInt(COL_IDEMPLOYE));
 			employe.setNom(rs.getString(COL_NOM));
 			employe.setPrenom(rs.getString(COL_PRENOM));
+			//employe.setRole(ManipEnumEmploye.StringToEnum(rs.getString(COL_ROLE)));
 			employe.setEmail(rs.getString(COL_MAIL));
 			employe.setPassword(rs.getString(COL_MDP));
 			commande.setEmploye(employe);

@@ -7,7 +7,7 @@
   		<div id="bonjour">
   			<h2>Bonjour ${sessionScope.user.prenom} ${sessionScope.user.nom}</h2>
   			
-  			<b>${messageAjout}</b>
+  			<b style=color:red>${messageAjout}</b>
   		
   		
   		<h3>Menu Manager</h3>
@@ -58,19 +58,19 @@
 				    <div class="form-group">
 				      <label class="control-label col-sm-2" for="email">Libellé :</label>
 				      <div class="col-sm-10">
-				        <input type="text" class="form-control" id="libelle" placeholder="${libelle}" name="libelle">
+				        <input type="text" class="form-control" id="libelle" placeholder="${libelle}" name="libelle" required>
 				      </div>
 				    </div>
 				    <div class="form-group">
 				      <label class="control-label col-sm-2" for="pwd">Poids :</label>
 				      <div class="col-sm-10">          
-				        <input type="text" class="form-control" id="poids" placeholder="${article.poids}" name="poids">
+				        <input type="text" class="form-control" id="poids" placeholder="${article.poids}" name="poids" required>
 				      </div>
 				    </div>
 				    <div class="form-group">
 				      <label class="control-label col-sm-2" for="pwd">Quantité :</label>
 				      <div class="col-sm-10">          
-				        <input type="text" class="form-control" id="quantite" placeholder="${article.quantite}" name="quantite">
+				        <input type="text" class="form-control" id="quantite" placeholder="${article.quantite}" name="quantite" required>
 				      </div>
 				    </div>
 				    <div class="form-group">        

@@ -38,8 +38,7 @@
 				<div class="form-group">
 					<label for="usr"></label> 
 					<input type="text" class="form-control"
-						value=" ${sessionScope.commandeEnCours.societe.nom},${sessionScope.commandeEnCours.societe.adresse}"
-						id="usr">
+						value=" ${sessionScope.commandeEnCours.societe.nom},${sessionScope.commandeEnCours.societe.adresse}" id="usr">
 				</div>
 				<thead>
 					<tr>
@@ -61,8 +60,9 @@
 				
 			</table>
 			<table>
-			<tr><label for="poidsTotals">Poids Total : </label>
-					<input type="text" name="poidsTotals" id="poidsTotals"></th>
+				<tr>
+					<label for="poidsTotals">Poids Total : </label>
+					<input type="text" name="poidsTotals" id="poidsTotals">
 				</tr>
 			</table>
 			<br/>
@@ -75,8 +75,6 @@
 		</form>
 	</div>
 		
-			
-	
 	<script>
 	
 	var poidsCarton=300;

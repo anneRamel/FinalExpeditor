@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eniecole.bean.Employe;
+import fr.eniecole.bean.Employe_Manager_Enum;
 import fr.eniecole.dal.EmployeDAO;
+import fr.eniecole.utils.ManipEnumEmploye;
 
 /**
  * Servlet implementation class ManagerServlet
@@ -34,7 +36,17 @@ public class ManagerServlet extends HttpServlet {
 		ArrayList<Employe> listeEmploye = new ArrayList<>();
 		
 		try {
-			
+			Employe employe = new Employe();
+			employe.setNom(request.getParameter("nomAremplir"));
+			employe.setPrenom(request.getParameter("prenomAremplir"));
+			employe.setEmail(request.getParameter("emailAremplir"));
+			employe.setPassword(request.getParameter("pwdAremplir"));
+			employe.setRole(ManipEnumEmploye.StringToEnum("employe"));
+			String error=null;
+			if (employe.getNom() != null|| employe.getPrenom()!= null || employe.getEmail()!= null || employe.getPassword()!= null ) {
+				EmployeDAO.ajouter(employe);
+				
+			} else {error="Veuillez remplir tous les champs";}
 			listeEmploye = EmployeDAO.lister();
 			request.setAttribute("listeEmploye", listeEmploye);
 			request.getRequestDispatcher("/WEB-INF/jsp/manager/manager.jsp").forward(request, response);
@@ -61,7 +73,7 @@ public class ManagerServlet extends HttpServlet {
 				user = new EmployeDAO().authenticate(login, password);
 				//personne = new EmployeDAO().rechercher(user);
 				//System.out.println(personne.getId());
-				if ( user != null ) {
+				if (user != null && user.getRole().equals(Employe_Manager_Enum.manager)) {
 					
 					session.setAttribute("user", user);			
 					
