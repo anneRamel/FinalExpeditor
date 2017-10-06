@@ -16,13 +16,23 @@
 </head>
 
 <body>
-
-	<h2>${sessionScope.employeConnecte.getPrenom()}
-		${sessionScope.employeConnecte.getNom() }
-	</h2>
-	<h1>COMMANDE A TRAITER : ${sessionScope.commandeEnCours.societe.nom},${sessionScope.commandeEnCours.societe.adresse}</h1>
+ <header>
+     	<nav class="navbar navbar-default navbar-static-top">
+      		<div class="container">
+        		<div class="navbar-header"></div>
+       			<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+            			<li><a href="<%=request.getContextPath()%>/Deconnexion">Home</a></li>
+          			</ul>
+        		</div>
+      		</div>
+    	</nav>
+	</header>
+	
 	<div class="container">
-		<p>Veuillez saisir les quantites des articles de la commande:</p>
+	<h1>Bonjour ${sessionScope.user.getPrenom()} ${sessionScope.user.getNom()}</h1>
+	<h2>COMMANDE A TRAITER : N°${sessionScope.commandeEnCours.id}</h2>
+		<p>Veuillez saisir les quantités des articles de la commande :</p>
 		<form id="imprimer" action="${pageContext.request.contextPath}/CommandePrioritaireServlet" method="post">
 			<table class="table table-hover">
 				<div class="form-group">
@@ -48,7 +58,10 @@
 					</tr>
 				</c:forEach>
 				</thead>
-				<tr><label for="poidsTotals">Poids Total : </label>
+				
+			</table>
+			<table>
+			<tr><label for="poidsTotals">Poids Total : </label>
 					<input type="text" name="poidsTotals" id="poidsTotals"></th>
 				</tr>
 			</table>

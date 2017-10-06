@@ -3,15 +3,21 @@
 
 <jsp:include page="/WEB-INF/jsp/includes/header.jsp"/>
 
-	<div class="container">
+	<div class="container-fluid">
   		<div id="bonjour">
-  			<h2>Bonjour ${employe.prenom}</h2>
+  			<h2>Bonjour ${sessionScope.user.prenom} ${sessionScope.user.nom}</h2>
   			
   			<b>${messageAjout}</b>
+  		
+  		
+  		<h3>Menu Manager</h3>
+			  <ul class="nav nav-tabs">
+			    <li ><a href="${pageContext.request.contextPath}/suiviCommande">Gérer commande</a></li>
+			    <li><a href="${pageContext.request.contextPath}/ManagerServlet">Gérer Employé</a></li>
+			    <li class="active"><a href="#">Gérer Article</a></li>
+			  </ul>
+			  <br>
   		</div>
-  		
-  		<%@ include file="/WEB-INF/jsp/manager/MenuManager.jspf" %>
-  		
 	  	<h3>Gérer les articles</h1>
 	  		
 		<form id="crud" action="<%=request.getContextPath()%>/ArticleServlet" method="post">
@@ -47,7 +53,7 @@
 		
 		<form id="ajouter" action="<%=request.getContextPath()%>/ArticleServlet" method="post">
 		
-			<div class="well" id="articleDetaille">
+			<div class="well col-sm-12" id="articleDetaille">
 	 			<h2>Article détaillé</h2>
 				    <div class="form-group">
 				      <label class="control-label col-sm-2" for="email">Libellé :</label>

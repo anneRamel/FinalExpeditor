@@ -31,7 +31,18 @@ public class ManagerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/manager/manager.jsp").forward(request, response);
+		ArrayList<Employe> listeEmploye = new ArrayList<>();
+		
+		try {
+			
+			listeEmploye = EmployeDAO.lister();
+			request.setAttribute("listeEmploye", listeEmploye);
+			request.getRequestDispatcher("/WEB-INF/jsp/manager/manager.jsp").forward(request, response);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(listeEmploye);
+		
 	}
 
 	/**

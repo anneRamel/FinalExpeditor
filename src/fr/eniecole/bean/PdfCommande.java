@@ -54,6 +54,9 @@ public class PdfCommande {
      * @param canvas
      */
     public static void setReceiverBlock(Societe societe, PdfContentByte canvas){
+    	String [] adresseSplit = societe.getAdresse().split("-");
+    	String rue = adresseSplit[0];
+    	String ville = adresseSplit[1];
     	int i = 800 ;
     	int x = 420 ;
     	ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("DESTINATAIRE"), x, i, 0);
@@ -61,7 +64,9 @@ public class PdfCommande {
 	
 		ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(societe.getNom()), x, i, 0);
 		i = i-20;
-		ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(societe.getAdresse()), x, i, 0);
+		ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(rue), x, i, 0);
+		i = i-20;
+		ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(ville), x, i, 0);
 		i = i-20;
 		
     }
@@ -84,23 +89,38 @@ public class PdfCommande {
      */
     public static void setCommandeDetail(Commande commande, PdfContentByte canvas){
     	int i = 630 ;
+    	float poidsTotal = 0;
     	//En tete
-    	ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("REF"), 50, i, 0);
-        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("DESIGNATION"), 150, i, 0);
-        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("POIDS"), 350, i, 0);
-        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("QUANTITE"), 480, i, 0);
+    	ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("LIBELLE"), 50, i, 0);
+        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("QUANTITE"), 150, i, 0);
+        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("POIDS(grammes)"), 350, i, 0);
+        
         i=i-20;
         ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("__________________________________________________________________________"), 50, i, 0);
         //Génération a partir du tableau : 
         i=i-30;
         for (Map.Entry<Article, Integer> entry : commande.getArticlesCommandes().entrySet()) {
+        	float poidsArticle = entry.getKey().getPoids()*entry.getValue();
+        	poidsTotal += poidsArticle;
         	ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(entry.getKey().getLibelle()), 50, i, 0);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(entry.getValue()), 350, i, 0);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(entry.getKey().getPoids()*entry.getValue()), 480, i, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(entry.getValue().toString()), 150, i, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(String.valueOf(poidsArticle)), 350, i, 0);
             i = i-20 ;
 		}
+        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("__________________________________________________________________________"), 50, i, 0);
+        i = i-40;
+        float weightKg = poidsTotal/1000 ;
+        //float weightG = weightKg%1000;
+        String display = String.valueOf(weightKg) + " Kg";
+        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("POIDS COLIS : "+ display), 420, 670, 0);
         
+        
+        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Signature du client "), 420, i, 0);
+        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Signature du transporteur "), 50, i, 0);
+        i=i-30;
     }
+        
+    
     
     /**
      * Méthode en charger de transformer l'id de la commande 

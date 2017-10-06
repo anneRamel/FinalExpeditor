@@ -7,7 +7,13 @@
    </h1> 
     
 </div>
-
+<h3>Menu Manager</h3>
+  <ul class="nav nav-tabs">
+    <li><a href="${pageContext.request.contextPath}/suiviCommande">Gérer commande</a></li>
+    <li class="active"><a href="#">Gérer Employé</a></li>
+    <li><a href="${pageContext.request.contextPath}/ArticleServlet">Gérer Article</a></li>
+  </ul>
+  <br>
 <div class="row" > 
   
 <div class="col-lg-6 panel-group">

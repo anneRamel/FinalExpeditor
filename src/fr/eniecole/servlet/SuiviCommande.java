@@ -38,7 +38,6 @@ public class SuiviCommande extends HttpServlet {
 		RequestDispatcher rd = null;
 		List<Commande> listeCommandes = null;
 		Map<Employe, Integer> nbCommandes = null;
-		Employe employe = (Employe) request.getSession().getAttribute("user");
 		
 		try {
 			listeCommandes = dao.getListeCommandes();
@@ -53,8 +52,7 @@ public class SuiviCommande extends HttpServlet {
 				request.setAttribute("label", nomEmploye);
 			}
 			rd = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/manager/suiviCommande.jsp");
-			System.out.println(listeCommandes);
-			System.out.println(nbCommandes);
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

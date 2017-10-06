@@ -53,7 +53,7 @@ public class EmployeServlet extends HttpServlet {
 		if ( user != null ) {
 
 			session.setAttribute("user", user);
-			request.getRequestDispatcher("/WEB-INF/jsp/employe/employe.jsp").forward(request, response);
+			request.getRequestDispatcher("CommandePrioritaireServlet").forward(request, response);
 		}else{
 			request.setAttribute("error", "Login et/ou mot de passe incorrect(s)");
 			request.getRequestDispatcher("/WEB-INF/jsp/employe/AuthEmploye.jsp").forward(request, response);

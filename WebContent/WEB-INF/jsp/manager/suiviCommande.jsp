@@ -26,8 +26,14 @@
 	</header>
 <div class="container-fluid">
 
-		<h1>Bonjour ${sessionScope.prenom} ${sessionScope.nom}</h1>
-		
+		<h1>Bonjour ${sessionScope.user.prenom} ${sessionScope.user.nom}</h1>
+		<h3>Menu Manager</h3>
+		  <ul class="nav nav-tabs">
+		    <li class="active"><a href="#">Gérer commande</a></li>
+		    <li><a href="${pageContext.request.contextPath}/ManagerServlet">Gérer Employé</a></li>
+		    <li><a href="${pageContext.request.contextPath}/ArticleServlet">Gérer Article</a></li>
+		  </ul>
+		  <br>
 			<div class="col-lg-8 panel-group">
 				<div class="col-lg-12 panel panel-primary">
 					<div class="row panel-heading">
@@ -64,7 +70,7 @@
 					<div class="row panel-body">
 						<div class="col-lg-12">
 							<c:forEach var="employe" items="${requestScope.nbCommandes}">
-							<div class="col-lg-7"><p>${employe.key.prenom}${employe.key.nom}</p></div>
+							<div class="col-lg-7"><p>${employe.key.prenom} ${employe.key.nom}</p></div>
 							<div class="col-lg-5"><p>${employe.value}</p></div>
 							</c:forEach>
 						</div>

@@ -34,10 +34,8 @@ public class CommandePrioritaireServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		//Employe employe = (Employe) request.getSession().getAttribute("user");
-		Employe employe = new Employe();
-		employe.setId(1);
-		
+		Employe employe = (Employe) request.getSession().getAttribute("user");
+				
 		try {
 			Commande commande = new CommandeDAO().getCommande();
 			commande = new CommandeDAO().getDetailCommande(commande);
@@ -76,6 +74,8 @@ public class CommandePrioritaireServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else{
+			doGet(request,response);
 		}
 	}
 }
